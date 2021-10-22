@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">userProfile</string>
+    <string name="defaultName">here will be text</string>
+    <string name="followBtnText">Follow</string>
+    <string name="postsText">Posts</string>
+    <string name="followersText">Followers</string>
+    <string name="followingText">Following</string>
+    <string name="phoneText">Phone</string>
+    <string name="emailText">Email</string>
+    <string name="scooby">Scooby</string>
+    <string name="online">online</string>
+    <string name="shaggy">Shaggy</string>
+    <string name="yesterday">yesterday</string>
+    <string name="welma">Welma</string>
+    <string name="_5_min_ago">5 min ago</string>
+    <string name="dafna">Dafna</string>
+    <string name="fred">Fred</string>
+    <string name="_6_hour_ago">6 hour ago</string>
+    <string name="mummy">Mummy</string>
+    <string name="a_long_time_ago">a long time ago</string>
+    <string name="ghost">Ghost</string>
+    <string name="user_s_photo">User\'s photo</string>
+</resources>
