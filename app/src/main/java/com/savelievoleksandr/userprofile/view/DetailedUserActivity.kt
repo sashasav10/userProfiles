@@ -6,19 +6,20 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.savelievoleksandr.userprofile.R
-import com.savelievoleksandr.userprofile.viewModel.UserViewModel
+import com.savelievoleksandr.userprofile.viewModel.DetailedUserViewModel
 
 class DetailedUserActivity : AppCompatActivity() {
-    private lateinit var viewModel: UserViewModel
+    private lateinit var viewModel: DetailedUserViewModel
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile)
 
-        viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(DetailedUserViewModel::class.java)
         val userPhoto: ImageView = findViewById(R.id.profilePhotoImageView)
         val userName: TextView = findViewById(R.id.userNameTextView)
         val posts: TextView = findViewById(R.id.postsText)
@@ -29,19 +30,19 @@ class DetailedUserActivity : AppCompatActivity() {
         val email: TextView = findViewById(R.id.emailText)
 
         val arguments = intent.extras
-        val index: Int = (arguments?.getInt("id") ?: viewModel.loadUserData()) as Int
-        viewModel.loadUserData()
-        viewModel.userLiveData.observe(this, {
+        val index: Int = arguments?.getInt("id")!!.toInt()
+        viewModel.loadUserDetailedData(index)
+        viewModel.userDetailedLiveData.observe(this, Observer {
             userPhoto.setImageDrawable(
-                getDrawable(resources.getIdentifier(it.userList[index].photo, null, packageName))
+                getDrawable(resources.getIdentifier(it.photo, null, packageName))
             )
-            userName.text = it.userList[index].name
-            posts.text = it.userList[index].posts
-            followers.text = it.userList[index].followers
-            following.text = it.userList[index].following
-            bio.text = it.userList[index].bio
-            phone.text = it.userList[index].phone
-            email.text = it.userList[index].email
+            userName.text = it.name
+            posts.text = it.posts
+            followers.text = it.followers
+            following.text = it.following
+            bio.text = it.bio
+            phone.text = it.phone
+            email.text = it.email
         })
     }
 }

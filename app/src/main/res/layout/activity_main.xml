@@ -22,8 +22,8 @@
                 android:id="@+id/userPhoto1"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                app:srcCompat="@drawable/scooby_ava"
-                android:contentDescription="@string/user_s_photo" />
+                android:contentDescription="@string/user_s_photo"
+                app:srcCompat="@drawable/user_emoji" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,14 +36,14 @@
                     android:id="@+id/userName1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/scooby"
+                    android:text="@string/defaultName"
                     android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/lastSeen1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/online"
+                    android:text="@string/defaultName"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -62,8 +62,8 @@
                 android:id="@+id/userPhoto2"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                app:srcCompat="@drawable/shaggy_ava"
-                android:contentDescription="@string/user_s_photo" />
+                android:contentDescription="@string/user_s_photo"
+                app:srcCompat="@drawable/user_emoji" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,14 +76,14 @@
                     android:id="@+id/userName2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/shaggy"
+                    android:text="@string/defaultName"
                     android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/lastSeen2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/yesterday"
+                    android:text="@string/defaultName"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -102,8 +102,8 @@
                 android:id="@+id/userPhoto3"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                app:srcCompat="@drawable/welma_ava"
-                android:contentDescription="@string/user_s_photo" />
+                android:contentDescription="@string/user_s_photo"
+                app:srcCompat="@drawable/user_emoji" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -116,14 +116,14 @@
                     android:id="@+id/userName3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/welma"
+                    android:text="@string/defaultName"
                     android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/lastSeen3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/_5_min_ago"
+                    android:text="@string/defaultName"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -142,8 +142,8 @@
                 android:id="@+id/userPhoto4"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                app:srcCompat="@drawable/dafna_ava"
-                android:contentDescription="@string/user_s_photo" />
+                android:contentDescription="@string/user_s_photo"
+                app:srcCompat="@drawable/user_emoji" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -156,14 +156,14 @@
                     android:id="@+id/userName4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/dafna"
+                    android:text="@string/defaultName"
                     android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/lastSeen4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/online"
+                    android:text="@string/defaultName"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -182,8 +182,8 @@
                 android:id="@+id/userPhoto5"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                app:srcCompat="@drawable/fred_ava"
-                android:contentDescription="@string/user_s_photo" />
+                android:contentDescription="@string/user_s_photo"
+                app:srcCompat="@drawable/user_emoji" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -196,14 +196,14 @@
                     android:id="@+id/userName5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/fred"
+                    android:text="@string/defaultName"
                     android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/lastSeen5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/_6_hour_ago"
+                    android:text="@string/defaultName"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -222,8 +222,8 @@
                 android:id="@+id/userPhoto6"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                app:srcCompat="@drawable/mummy_ava"
-                android:contentDescription="@string/user_s_photo" />
+                android:contentDescription="@string/user_s_photo"
+                app:srcCompat="@drawable/user_emoji" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -236,19 +236,17 @@
                     android:id="@+id/userName6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/mummy"
+                    android:text="@string/defaultName"
                     android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/lastSeen6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/a_long_time_ago"
+                    android:text="@string/defaultName"
                     android:textSize="18sp" />
 
             </LinearLayout>
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -262,8 +260,8 @@
                 android:id="@+id/userPhoto7"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                app:srcCompat="@drawable/ghost_ava"
-                android:contentDescription="@string/user_s_photo" />
+                android:contentDescription="@string/user_s_photo"
+                app:srcCompat="@drawable/user_emoji" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -276,16 +274,15 @@
                     android:id="@+id/userName7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/ghost"
+                    android:text="@string/defaultName"
                     android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/lastSeen7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/a_long_time_ago"
+                    android:text="@string/defaultName"
                     android:textSize="18sp" />
-
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
