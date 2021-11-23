@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UserProfile">
         <activity
-            android:name=".view.DetailedUserActivity"
-            android:exported="true" />
-        <activity
             android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
@@ -21,6 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.EditProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.DetailedUserActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

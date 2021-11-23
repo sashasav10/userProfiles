@@ -3,6 +3,7 @@ package com.savelievoleksandr.userprofile.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -15,11 +16,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-        viewModel.loadUserData()
         val userLayoutList = listOf<LinearLayout>(
             findViewById(R.id.layout0),
             findViewById(R.id.layout1),
@@ -56,9 +57,11 @@ class MainActivity : AppCompatActivity() {
             findViewById(R.id.lastSeen6),
             findViewById(R.id.lastSeen7)
         )
+        viewModel.insert()
+        viewModel.loadUserData()
         viewModel.userLiveData.observe(this, Observer {
-            for (id in userLayoutList.indices){
-                userLayoutList[id].setOnClickListener{onClick(id)}
+            for (id in userLayoutList.indices) {
+                userLayoutList[id].setOnClickListener { onClick(id) }
                 userNameList[id].text = it[id].name
                 userLastSeenList[id].text = it[id].lastSeen
                 userPhotoList[id].setImageDrawable(
