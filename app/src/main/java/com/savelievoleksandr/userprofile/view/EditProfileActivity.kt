@@ -2,30 +2,28 @@ package com.savelievoleksandr.userprofile.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import com.savelievoleksandr.userprofile.R
 import com.savelievoleksandr.userprofile.model.User
-import com.savelievoleksandr.userprofile.viewModel.DetailedUserViewModel
+import com.savelievoleksandr.userprofile.model.UserData
+import com.savelievoleksandr.userprofile.viewModel.EditProfileViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
 class EditProfileActivity : AppCompatActivity() {
-    private lateinit var viewModel: DetailedUserViewModel
+    private lateinit var viewModel: EditProfileViewModel
     private var index by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
-        viewModel = ViewModelProvider(this).get(DetailedUserViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
         val arguments = intent.extras
         val index: Int = arguments?.getInt("id")!!.toInt()
         val nameEditText: EditText = findViewById(R.id.nameEditText)
@@ -51,9 +49,10 @@ class EditProfileActivity : AppCompatActivity() {
             photo = it.photo
         })
         val saveChangesBtn: Button = findViewById(R.id.saveChangesBtn)
+
         saveChangesBtn.setOnClickListener {
             val user = User(
-                index+1,
+                index,
                 nameEditText.text.toString(),
                 photo,
                 lastSeenEditText.text.toString(),

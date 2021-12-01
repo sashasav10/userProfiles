@@ -22,7 +22,7 @@ class UserViewModel(app: Application) : AndroidViewModel(app) {
 
     fun insert() {
         if (dataSource.getUser() == null) {
-            for (user in userData.userList) {
+            for (user in dataSource.getAllUsers()) {
                 dataSource.run {
                     CoroutineScope(Dispatchers.IO).launch {
                         insert(user)

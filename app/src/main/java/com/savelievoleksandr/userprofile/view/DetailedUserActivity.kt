@@ -29,6 +29,7 @@ class DetailedUserActivity : AppCompatActivity() {
         setContentView(R.layout.profile)
 
         viewModel = ViewModelProvider(this).get(DetailedUserViewModel::class.java)
+
         val userPhoto: ImageView = findViewById(R.id.profilePhotoImageView)
         val userName: TextView = findViewById(R.id.userNameTextView)
         val posts: TextView = findViewById(R.id.postsText)

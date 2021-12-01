@@ -10,12 +10,16 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import android.content.Context
 import android.content.SharedPreferences
+import android.widget.Toast
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModelProvider
 import com.savelievoleksandr.userprofile.R
+import com.savelievoleksandr.userprofile.model.User
+import com.savelievoleksandr.userprofile.model.UserData
+import com.savelievoleksandr.userprofile.viewModel.EditProfileViewModel
 import com.savelievoleksandr.userprofile.viewModel.UserViewModel
 
 
@@ -25,11 +29,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-
         val userLayoutList = listOf<LinearLayout>(
             findViewById(R.id.layout0),
             findViewById(R.id.layout1),
@@ -66,6 +68,7 @@ class MainActivity : AppCompatActivity() {
             findViewById(R.id.lastSeen6),
             findViewById(R.id.lastSeen7)
         )
+
         viewModel.insert()
         viewModel.loadUserData()
         viewModel.userLiveData.observe(this, Observer {
@@ -89,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onClick(index: Int) {
         val intent = Intent(this, DetailedUserActivity::class.java)
-        intent.putExtra("id", index)
+        intent.putExtra("id", index+1)
         startActivity(intent)
     }
 }
