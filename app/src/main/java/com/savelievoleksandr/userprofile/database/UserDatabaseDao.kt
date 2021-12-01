@@ -4,16 +4,17 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.Deferred
 import com.savelievoleksandr.userprofile.model.User
 
 @Dao
 interface UserDatabaseDao {
 
     @Insert
-    fun insert(user: User)
+    suspend fun insert(user: User)
 
     @Update
-    fun update(user: User)
+    suspend fun update(user: User)
 
     @Query("SELECT * FROM users_table")
     fun getAllUsers(): List<User>

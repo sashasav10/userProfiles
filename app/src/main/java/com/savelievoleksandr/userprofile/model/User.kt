@@ -3,28 +3,27 @@ package com.savelievoleksandr.userprofile.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.io.Serializable
 
 @Entity(tableName = "users_table")
 data class User(
     @PrimaryKey()
-    val id: Int,
+    var id: Int,
     @ColumnInfo(name = "user_name")
-    val name: String,
+    var name: String,
     @ColumnInfo(name = "user_photo")
-    val photo: String,
+    var photo: String,
     @ColumnInfo(name = "user_last_Seen")
-    val lastSeen: String,
+    var lastSeen: String,
     @ColumnInfo(name = "user_posts")
-    val posts: String,
+    var posts: String,
     @ColumnInfo(name = "user_followers")
     var followers: String,
     @ColumnInfo(name = "user_following")
-    val following: String,
+    var following: String,
     @ColumnInfo(name = "user_bio")
-    val bio: String,
+    var bio: String,
     @ColumnInfo(name = "user_phone")
-    val phone: String,
+    var phone: String,
     @ColumnInfo(name = "user_email")
-    val email: String
+    var email: String
 )

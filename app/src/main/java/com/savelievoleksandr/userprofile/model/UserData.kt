@@ -1,9 +1,10 @@
 package com.savelievoleksandr.userprofile.model
+import androidx.room.Entity
 
 class UserData {
     val userList = listOf(
         User(
-            1,
+            0,
             "Scooby",
             "@drawable/scooby_ava",
             "online",
@@ -14,7 +15,7 @@ class UserData {
             "0999666888",
             "scooby@mystery.inc"
         ), User(
-            2,
+            1,
             "Shaggy",
             "@drawable/shaggy_ava",
             "yesterday",
@@ -25,7 +26,7 @@ class UserData {
             "04584742394",
             "shaggy@mystery.inc"
         ), User(
-            3,
+            2,
             "Welma",
             "@drawable/welma_ava",
             "5 min ago",
@@ -36,7 +37,7 @@ class UserData {
             "0668996547",
             "welma@mystery.inc"
         ), User(
-            4,
+            3,
             "Dafna",
             "@drawable/dafna_ava",
             "online",
@@ -47,7 +48,7 @@ class UserData {
             "04584742394",
             "dafna@mystery.inc"
         ), User(
-            5,
+            4,
             "Fred",
             "@drawable/fred_ava",
             "6 hour ago",
@@ -58,7 +59,7 @@ class UserData {
             "894083348",
             "fred@mystery.inc"
         ), User(
-            6,
+            5,
             "Mummy",
             "@drawable/mummy_ava",
             "a long time ago",
@@ -69,7 +70,7 @@ class UserData {
             "0666000777",
             "mummy@egypt"
         ), User(
-            7,
+            6,
             "Ghost",
             "@drawable/ghost_ava",
             "a long time ago",

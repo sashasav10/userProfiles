@@ -10,6 +10,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import com.savelievoleksandr.userprofile.R
 import com.savelievoleksandr.userprofile.viewModel.DetailedUserViewModel
 import kotlin.properties.Delegates
@@ -37,7 +41,7 @@ class DetailedUserActivity : AppCompatActivity() {
         val arguments = intent.extras
         index = arguments?.getInt("id")!!.toInt()
         viewModel.loadUserDetailedData(index)
-        viewModel.userDetailedLiveData.observe(this, Observer {
+        viewModel.userDetailedLiveData.observe(this, {
             userPhoto.setImageDrawable(
                 getDrawable(resources.getIdentifier(it.photo, null, packageName))
             )

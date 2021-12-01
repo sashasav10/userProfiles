@@ -9,15 +9,21 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import com.savelievoleksandr.userprofile.R
 import com.savelievoleksandr.userprofile.model.User
 import com.savelievoleksandr.userprofile.viewModel.DetailedUserViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlin.properties.Delegates
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var viewModel: DetailedUserViewModel
+    private var index by Delegates.notNull<Int>()
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
         viewModel = ViewModelProvider(this).get(DetailedUserViewModel::class.java)
         val arguments = intent.extras
@@ -30,7 +36,7 @@ class EditProfileActivity : AppCompatActivity() {
         val bioEditText: EditText = findViewById(R.id.bioEditText)
         val phoneEditText: EditText = findViewById(R.id.phoneEditText)
         val emailEditText: EditText = findViewById(R.id.emailEditText)
-        var photo: String = ""
+        var photo = ""
         viewModel.loadUserDetailedData(index)
 
         viewModel.userDetailedLiveData.observe(this, Observer {
@@ -46,8 +52,8 @@ class EditProfileActivity : AppCompatActivity() {
         })
         val saveChangesBtn: Button = findViewById(R.id.saveChangesBtn)
         saveChangesBtn.setOnClickListener {
-            val user: User = User(
-                index,
+            val user = User(
+                index+1,
                 nameEditText.text.toString(),
                 photo,
                 lastSeenEditText.text.toString(),
@@ -58,7 +64,9 @@ class EditProfileActivity : AppCompatActivity() {
                 phoneEditText.text.toString(),
                 emailEditText.text.toString()
             )
-            viewModel.updateUserInfo(user)
+            GlobalScope.launch(Dispatchers.IO) {
+                viewModel.updateUserInfo(user)
+            }
             val intent = Intent(this, MainActivity::class.java)
             this.finish()
             startActivity(intent)

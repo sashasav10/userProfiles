@@ -8,23 +8,38 @@ import com.savelievoleksandr.userprofile.model.User
 import com.savelievoleksandr.userprofile.model.UserData
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-open class UserViewModel(app: Application) : AndroidViewModel(app) {
-    private val dataSource = UserDatabase.getInstance(app).userDatabaseDao
-    private val userLiveDataList = MutableLiveData<List<User>>()
+class UserViewModel(app: Application) : AndroidViewModel(app) {
+    val userData: UserData = UserData()
+    val userLiveDataList = MutableLiveData<List<User>>()
     var userLiveData: LiveData<List<User>> = userLiveDataList
-    fun loadUserData() {
-        userLiveDataList.value = dataSource.getAllUsers()
-    }
+    var dataSource = UserDatabase.getInstance(app).userDatabaseDao()
+    private var id = MutableLiveData<Int>()
+    val userId: LiveData<Int> = id
 
     fun insert() {
         if (dataSource.getUser() == null) {
-            for (user in dataSource.getAllUsers())
-                dataSource.insert(user)
+            for (user in userData.userList) {
+                dataSource.run {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        insert(user)
+                    }
+                }
+            }
         }
     }
 
-    fun getAll(): List<User> {
-        return dataSource.getAllUsers()
+
+    fun openUserId(index: Int) {
+        id.value = index
+    }
+
+    fun loadUserData() {
+        userLiveDataList.value = dataSource.getAllUsers()
     }
 }
+
+

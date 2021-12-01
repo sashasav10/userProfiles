@@ -8,9 +8,18 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.Observer
+import android.content.Context
+import android.content.SharedPreferences
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModelProvider
 import com.savelievoleksandr.userprofile.R
 import com.savelievoleksandr.userprofile.viewModel.UserViewModel
+
+
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: UserViewModel
@@ -65,10 +74,17 @@ class MainActivity : AppCompatActivity() {
                 userNameList[id].text = it[id].name
                 userLastSeenList[id].text = it[id].lastSeen
                 userPhotoList[id].setImageDrawable(
-                    getDrawable(resources.getIdentifier(it[id].photo, null, packageName))
+                    getDrawable(
+                        resources.getIdentifier(
+                            it[id].photo,
+                            null,
+                            packageName
+                        )
+                    )
                 )
             }
         })
+
     }
 
     private fun onClick(index: Int) {
