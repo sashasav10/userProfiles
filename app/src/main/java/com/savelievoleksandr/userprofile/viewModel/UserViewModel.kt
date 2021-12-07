@@ -20,7 +20,7 @@ class UserViewModel(app: Application) : AndroidViewModel(app) {
     private var id = MutableLiveData<Int>()
     val userId: LiveData<Int> = id
 
-    fun insert() {
+    suspend fun insert() {
         if (dataSource.getUser() == null) {
             for (user in dataSource.getAllUsers()) {
                 dataSource.run {

@@ -23,5 +23,5 @@ interface UserDatabaseDao {
     fun get(key: Int): User?
 
     @Query("SELECT * FROM users_table LIMIT 1")
-    fun getUser(): User?
+    suspend fun getUser(): User?
 }

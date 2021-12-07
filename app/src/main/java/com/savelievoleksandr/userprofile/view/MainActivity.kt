@@ -11,18 +11,13 @@ import androidx.lifecycle.Observer
 import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModelProvider
 import com.savelievoleksandr.userprofile.R
 import com.savelievoleksandr.userprofile.model.User
 import com.savelievoleksandr.userprofile.model.UserData
 import com.savelievoleksandr.userprofile.viewModel.EditProfileViewModel
 import com.savelievoleksandr.userprofile.viewModel.UserViewModel
-
-
+import kotlinx.coroutines.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -68,8 +63,11 @@ class MainActivity : AppCompatActivity() {
             findViewById(R.id.lastSeen6),
             findViewById(R.id.lastSeen7)
         )
-
-        viewModel.insert()
+        viewModel.run {
+            CoroutineScope(Dispatchers.IO).launch {
+                insert()
+            }
+        }
         viewModel.loadUserData()
         viewModel.userLiveData.observe(this, Observer {
             for (id in userLayoutList.indices) {
