@@ -11,19 +11,20 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DetailedUserViewModel(app:Application) : AndroidViewModel(app) {
+class DetailedUserViewModel(app: Application) : AndroidViewModel(app) {
     private val _userDetailedLiveData = MutableLiveData<User>()
     val userDetailedLiveData = _userDetailedLiveData
     val dataSource = UserDatabase.getInstance(app).userDatabaseDao()
 
     fun loadUserDetailedData(index: Int) {
-        _userDetailedLiveData.value = dataSource.get(index)
+        CoroutineScope(Dispatchers.IO).launch {
+            _userDetailedLiveData.postValue(dataSource.get(index))
+        }
     }
+
     suspend fun updateUserInfo(user: User) {
-        dataSource.run {
-            CoroutineScope(Dispatchers.IO).launch {
-                update(user)
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            dataSource.update(user)
         }
     }
 }

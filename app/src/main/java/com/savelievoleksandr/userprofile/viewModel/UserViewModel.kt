@@ -20,25 +20,22 @@ class UserViewModel(app: Application) : AndroidViewModel(app) {
     private var id = MutableLiveData<Int>()
     val userId: LiveData<Int> = id
 
-    suspend fun insert() {
-        if (dataSource.getUser() == null) {
-            for (user in dataSource.getAllUsers()) {
-                dataSource.run {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        insert(user)
-                    }
+    fun fillUpDatabase() {
+        CoroutineScope(Dispatchers.IO).launch {
+            if (dataSource.getUser() == null) {
+                for (user in dataSource.getAllUsers()) {
+                    dataSource.insert(user)
                 }
             }
         }
     }
 
 
-    fun openUserId(index: Int) {
-        id.value = index
-    }
 
     fun loadUserData() {
-        userLiveDataList.value = dataSource.getAllUsers()
+        CoroutineScope(Dispatchers.IO).launch {
+            userLiveDataList.postValue(dataSource.getAllUsers())
+        }
     }
 }
 

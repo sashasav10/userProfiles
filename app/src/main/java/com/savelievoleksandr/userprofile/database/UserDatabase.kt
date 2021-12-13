@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 import androidx.room.*
 import com.savelievoleksandr.userprofile.model.User
 
-@Database(entities = [User::class], version = 1, exportSchema = true)
+@Database(entities = [User::class], version = 1, exportSchema = false)
 abstract class UserDatabase : RoomDatabase() {
 
     abstract fun userDatabaseDao(): UserDatabaseDao
@@ -26,7 +26,7 @@ abstract class UserDatabase : RoomDatabase() {
                         context.applicationContext,
                         UserDatabase::class.java,
                         "user_history_database"
-                    ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
+                    ).fallbackToDestructiveMigration().build()
                     INSTANCE = instance
                 }
                 return instance

@@ -18,14 +18,14 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
     val userDetailedLiveData: LiveData<User> = _userDetailedLiveData
 
     fun loadUserDetailedData(index: Int) {
-        _userDetailedLiveData.value =  dataSource.get(index)
+        CoroutineScope(Dispatchers.IO).launch {
+            _userDetailedLiveData.postValue(dataSource.get(index))
+        }
     }
 
     suspend fun updateUserInfo(user: User) {
-        dataSource.run {
-            CoroutineScope(Dispatchers.IO).launch {
-                update(user)
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            dataSource.update(user)
         }
     }
 }

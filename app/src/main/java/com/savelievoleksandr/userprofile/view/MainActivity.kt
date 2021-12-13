@@ -1,5 +1,6 @@
 package com.savelievoleksandr.userprofile.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +24,7 @@ import kotlinx.coroutines.*
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: UserViewModel
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -63,10 +65,9 @@ class MainActivity : AppCompatActivity() {
             findViewById(R.id.lastSeen6),
             findViewById(R.id.lastSeen7)
         )
-        viewModel.run {
-            CoroutineScope(Dispatchers.IO).launch {
-                insert()
-            }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            viewModel.fillUpDatabase()
         }
         viewModel.loadUserData()
         viewModel.userLiveData.observe(this, Observer {
@@ -90,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onClick(index: Int) {
         val intent = Intent(this, DetailedUserActivity::class.java)
-        intent.putExtra("id", index+1)
+        intent.putExtra("id", index + 1)
         startActivity(intent)
     }
 }
