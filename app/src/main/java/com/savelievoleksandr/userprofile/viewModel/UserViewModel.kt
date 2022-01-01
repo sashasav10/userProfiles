@@ -1,13 +1,11 @@
 package com.savelievoleksandr.userprofile.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.savelievoleksandr.userprofile.database.UserDatabase
 import com.savelievoleksandr.userprofile.model.User
 import com.savelievoleksandr.userprofile.model.UserData
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.provider.SyncStateContract.Helpers.insert
+import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,22 +18,29 @@ class UserViewModel(app: Application) : AndroidViewModel(app) {
     private var id = MutableLiveData<Int>()
     val userId: LiveData<Int> = id
 
-    fun fillUpDatabase() {
-        CoroutineScope(Dispatchers.IO).launch {
-            if (dataSource.getUser() == null) {
-                for (user in dataSource.getAllUsers()) {
-                    dataSource.insert(user)
-                }
+    init {
+        viewModelScope.launch {
+            fillUpDatabase()
+        }
+        viewModelScope.launch(Dispatchers.Main) {
+            loadUserData()
+        }
+    }
+
+    suspend fun fillUpDatabase() {
+        if (dataSource.getUser() == null) {
+            for (user in dataSource.getAllUsers()) {
+                dataSource.insert(user)
             }
         }
     }
 
+    suspend fun loadUserData() {
+        userLiveDataList.postValue(dataSource.getAllUsers())
+    }
 
-
-    fun loadUserData() {
-        CoroutineScope(Dispatchers.IO).launch {
-            userLiveDataList.postValue(dataSource.getAllUsers())
-        }
+    fun getAllLivaData(): LiveData<List<User>> {
+        return dataSource.getAllUsersLiveData()
     }
 }
 

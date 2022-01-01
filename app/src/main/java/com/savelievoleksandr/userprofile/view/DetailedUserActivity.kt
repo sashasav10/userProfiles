@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -43,9 +44,8 @@ class DetailedUserActivity : AppCompatActivity() {
         index = arguments?.getInt("id")!!.toInt()
         viewModel.loadUserDetailedData(index)
         viewModel.userDetailedLiveData.observe(this, {
-            userPhoto.setImageDrawable(
-                getDrawable(resources.getIdentifier(it.photo, null, packageName))
-            )
+
+            Glide.with(this).load(it.photo).into(userPhoto)
             userName.text = it.name
             posts.text = it.posts
             followers.text = it.followers
