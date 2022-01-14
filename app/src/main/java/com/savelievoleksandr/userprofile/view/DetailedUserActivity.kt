@@ -8,37 +8,35 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import com.savelievoleksandr.userprofile.R
+import com.savelievoleksandr.userprofile.databinding.ProfileBinding
 import com.savelievoleksandr.userprofile.viewModel.DetailedUserViewModel
 import kotlin.properties.Delegates
 
 class DetailedUserActivity : AppCompatActivity() {
     private lateinit var viewModel: DetailedUserViewModel
+    private lateinit var binding: ProfileBinding
     private var index by Delegates.notNull<Int>()
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.profile)
+        binding = ProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         viewModel = ViewModelProvider(this).get(DetailedUserViewModel::class.java)
 
-        val userPhoto: ImageView = findViewById(R.id.profilePhotoImageView)
-        val userName: TextView = findViewById(R.id.userNameTextView)
-        val posts: TextView = findViewById(R.id.postsText)
-        val followers: TextView = findViewById(R.id.followersText)
-        val following: TextView = findViewById(R.id.followingText)
-        val bio: TextView = findViewById(R.id.bioText)
-        val phone: TextView = findViewById(R.id.phoneText)
-        val email: TextView = findViewById(R.id.emailText)
+        val userPhoto: ImageView = binding.profilePhotoImageView
+        val userName: TextView = binding.userNameTextView
+        val posts: TextView = binding.postsText
+        val followers: TextView = binding.followersText
+        val following: TextView = binding.followingText
+        val bio: TextView = binding.bioText
+        val phone: TextView = binding.phoneText
+        val email: TextView = binding.emailText
 
         val arguments = intent.extras
         index = arguments?.getInt("id")!!.toInt()
@@ -55,7 +53,7 @@ class DetailedUserActivity : AppCompatActivity() {
             email.text = it.email
         })
 
-        val editProfileBtn: View = findViewById(R.id.editProfileBtn)
+        val editProfileBtn: View = binding.editProfileBtn
         editProfileBtn.setOnClickListener { view ->
             val intent = Intent(this, EditProfileActivity::class.java)
             intent.putExtra("id", index)
