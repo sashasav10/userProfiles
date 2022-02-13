@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.savelievoleksandr.userprofile.databinding.ActivityAddProfileBinding
 import com.savelievoleksandr.userprofile.model.User
@@ -12,16 +11,12 @@ import com.savelievoleksandr.userprofile.viewModel.AddUserProfileViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlin.properties.Delegates
 
-class AddUserProfileActivity : AppCompatActivity() {
+class AddUserProfileActivity :  GeneralBinding<ActivityAddProfileBinding>(ActivityAddProfileBinding::inflate) {
     private lateinit var viewModel: AddUserProfileViewModel
-    private lateinit var binding: ActivityAddProfileBinding
-    private var index by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(AddUserProfileViewModel::class.java)
         val index = viewModel.size

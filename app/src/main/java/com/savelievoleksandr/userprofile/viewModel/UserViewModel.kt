@@ -1,22 +1,18 @@
 package com.savelievoleksandr.userprofile.viewModel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.savelievoleksandr.userprofile.database.UserDatabase
 import com.savelievoleksandr.userprofile.model.User
-import com.savelievoleksandr.userprofile.model.UserData
-import android.app.Application
-import android.provider.SyncStateContract.Helpers.insert
-import androidx.lifecycle.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserViewModel(app: Application) : AndroidViewModel(app) {
-    val userData: UserData = UserData()
-    val userLiveDataList = MutableLiveData<List<User>>()
-    var userLiveData: LiveData<List<User>> = userLiveDataList
-    var dataSource = UserDatabase.getInstance(app).userDatabaseDao()
-    private var id = MutableLiveData<Int>()
-    val userId: LiveData<Int> = id
+    private val userLiveDataList = MutableLiveData<List<User>>()
+    private var dataSource = UserDatabase.getInstance(app).userDatabaseDao()
 
     init {
         viewModelScope.launch {
@@ -27,7 +23,7 @@ class UserViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    suspend fun fillUpDatabase() {
+    private suspend fun fillUpDatabase() {
         if (dataSource.getUser() == null) {
             for (user in dataSource.getAllUsers()) {
                 dataSource.insert(user)
@@ -35,7 +31,7 @@ class UserViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    suspend fun loadUserData() {
+    private suspend fun loadUserData() {
         userLiveDataList.postValue(dataSource.getAllUsers())
     }
 

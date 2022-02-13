@@ -7,27 +7,23 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.savelievoleksandr.userprofile.R
 import com.savelievoleksandr.userprofile.databinding.ProfileBinding
 import com.savelievoleksandr.userprofile.viewModel.DetailedUserViewModel
 import kotlin.properties.Delegates
 
-class DetailedUserActivity : AppCompatActivity() {
+class DetailedUserActivity :  GeneralBinding<ProfileBinding>(ProfileBinding::inflate)  {
     private lateinit var viewModel: DetailedUserViewModel
-    private lateinit var binding: ProfileBinding
     private var index by Delegates.notNull<Int>()
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this).get(DetailedUserViewModel::class.java)
+        viewModel = ViewModelProvider(this)[DetailedUserViewModel::class.java]
 
         val userPhoto: ImageView = binding.profilePhotoImageView
         val userName: TextView = binding.userNameTextView
@@ -41,7 +37,7 @@ class DetailedUserActivity : AppCompatActivity() {
         val arguments = intent.extras
         index = arguments?.getInt("id")!!.toInt()
         viewModel.loadUserDetailedData(index)
-        viewModel.userDetailedLiveData.observe(this, {
+        viewModel.userDetailedLiveData.observe(this) {
 
             Glide.with(this).load(it.photo).into(userPhoto)
             userName.text = it.name
@@ -51,7 +47,7 @@ class DetailedUserActivity : AppCompatActivity() {
             bio.text = it.bio
             phone.text = it.phone
             email.text = it.email
-        })
+        }
 
         val editProfileBtn: View = binding.editProfileBtn
         editProfileBtn.setOnClickListener { view ->

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.savelievoleksandr.userprofile.databinding.ActivityEditProfileBinding
@@ -13,18 +12,14 @@ import com.savelievoleksandr.userprofile.viewModel.EditProfileViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlin.properties.Delegates
 
-class EditProfileActivity : AppCompatActivity() {
+class EditProfileActivity :  GeneralBinding<ActivityEditProfileBinding>(ActivityEditProfileBinding::inflate)   {
     private lateinit var viewModel: EditProfileViewModel
-    private lateinit var binding: ActivityEditProfileBinding
-    private var index by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
+        viewModel = ViewModelProvider(this)[EditProfileViewModel::class.java]
         val arguments = intent.extras
         val index: Int = arguments?.getInt("id")!!.toInt()
         val nameEditText: EditText = binding.nameEditText

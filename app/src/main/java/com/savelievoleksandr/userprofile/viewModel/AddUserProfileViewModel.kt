@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class AddUserProfileViewModel(application: Application) : AndroidViewModel(application) {
 
-    val dataSource = UserDatabase.getInstance(application).userDatabaseDao()
+    private val dataSource = UserDatabase.getInstance(application).userDatabaseDao()
     var size = 0
     init {
         viewModelScope.launch {
