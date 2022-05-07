@@ -91,7 +91,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/emailText"
-        android:inputType="textPersonName"
+        android:inputType="none|textEmailAddress|textEmailSubject"
         app:layout_constraintStart_toStartOf="@+id/phoneEditText"
         app:layout_constraintTop_toBottomOf="@+id/phoneEditText" />
 
@@ -118,4 +118,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/photoEditText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

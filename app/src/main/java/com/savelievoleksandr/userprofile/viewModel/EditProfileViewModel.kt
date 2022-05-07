@@ -15,6 +15,27 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
     private val dataSource = UserDatabase.getInstance(application).userDatabaseDao()
     val userDetailedLiveData: LiveData<User> = _userDetailedLiveData
 
+    fun isNumberValid(number: List<String>): Boolean {
+        var result: Boolean = true
+        number.forEach {
+            if (it.isEmpty() || !it.all { char -> char.isDigit() }
+            )
+                return false
+            if (it.toInt() < 0)
+                return false
+        }
+        return true
+    }
+
+    fun isEmpty(editText: List<String>): Boolean {
+        var result: Boolean = true
+        editText.forEach {
+            if (it.isEmpty())
+                return false
+        }
+        return true
+    }
+
     fun loadUserDetailedData(index: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             _userDetailedLiveData.postValue(dataSource.get(index))
