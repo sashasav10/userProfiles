@@ -9,59 +9,46 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class EditProfileViewModelTest : TestCase(){
-    private val viewModel = AddUserProfileViewModel(ApplicationProvider.getApplicationContext())
+    private val viewModel = EditProfileViewModel(ApplicationProvider.getApplicationContext())
 
     @Test
-    fun whenListIsEmpty() {
-        val ex = listOf("")
-        val result = viewModel.isEmpty(ex)
-        Truth.assertThat(result).isEqualTo(false)
-    }
-
-    @Test
-    fun whenListContainsEmpty() {
+    fun whenListContainsEmptyString() {
         val ex = listOf("ervbh", "", "rrt", "ervgt", "drfetg")
-        val result = viewModel.isEmpty(ex)
+        val result = viewModel.DoesListContainNotNullValues(ex)
         Truth.assertThat(result).isEqualTo(false)
     }
 
     @Test
-    fun whenStringIsNotEmpty() {
+    fun whenAllStringsInListAreNotEmpty() {
         val ex = listOf("no", "fdg", "b", "gtb", "324")
-        val result = viewModel.isEmpty(ex)
+        val result = viewModel.DoesListContainNotNullValues(ex)
         Truth.assertThat(result).isEqualTo(true)
     }
 
     @Test
-    fun whenStringIsNumber() {
+    fun whenllStringsAreNumber() {
         val ex = listOf("5", "6", "2", "234", "324")
-        val result = viewModel.isNumberValid(ex)
+        val result = viewModel.doesListContainOnlyNotEmptyNumbersBiggerThanZero(ex)
         Truth.assertThat(result).isEqualTo(true)
     }
 
     @Test
-    fun whenStringIsNotValidNumber() {
+    fun whenListContainsNotValidNumber() {
         val ex = listOf("5", "6", "-2", "234", "324")
-        val result = viewModel.isNumberValid(ex)
+        val result = viewModel.doesListContainOnlyNotEmptyNumbersBiggerThanZero(ex)
         Truth.assertThat(result).isEqualTo(false)
     }
 
     @Test
-    fun whenNumberContainsLetters() {
+    fun whenListContainsLetters() {
         val ex = listOf("5", "6afvvrt", "4", "234", "324")
-        val result = viewModel.isNumberValid(ex)
+        val result = viewModel.doesListContainOnlyNotEmptyNumbersBiggerThanZero(ex)
         Truth.assertThat(result).isEqualTo(false)
     }
     @Test
-    fun whenNumbersContainsEmpty() {
+    fun whenNumberListContainsEmpty() {
         val ex = listOf("no", "", "b", "gtb", "324")
-        val result = viewModel.isNumberValid(ex)
-        Truth.assertThat(result).isEqualTo(false)
-    }
-    @Test
-    fun whenNumberListIsEmpty() {
-        val ex = listOf("")
-        val result = viewModel.isNumberValid(ex)
+        val result = viewModel.doesListContainOnlyNotEmptyNumbersBiggerThanZero(ex)
         Truth.assertThat(result).isEqualTo(false)
     }
 }

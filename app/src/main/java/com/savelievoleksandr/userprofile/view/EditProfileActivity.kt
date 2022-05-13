@@ -49,14 +49,14 @@ class EditProfileActivity :
         val saveChangesBtn: Button = binding.saveChangesBtn
 
         saveChangesBtn.setOnClickListener {
-            if (viewModel.isNumberValid(
+            if (viewModel.doesListContainOnlyNotEmptyNumbersBiggerThanZero(
                     listOf(
                         postsEditText.text.toString(),
                         followersEditText.text.toString(),
                         followingEditText.text.toString()
                     )
                 ) ||
-                viewModel.isEmpty(
+                viewModel.DoesListContainNotNullValues(
                     listOf(
                         nameEditText.text.toString(),
                         lastSeenEditText.text.toString(),

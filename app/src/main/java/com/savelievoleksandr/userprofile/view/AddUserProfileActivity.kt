@@ -9,10 +9,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.savelievoleksandr.userprofile.databinding.ActivityAddProfileBinding
 import com.savelievoleksandr.userprofile.model.User
 import com.savelievoleksandr.userprofile.viewModel.AddUserProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class AddUserProfileActivity :
     GeneralBinding<ActivityAddProfileBinding>(ActivityAddProfileBinding::inflate) {
     private lateinit var viewModel: AddUserProfileViewModel
@@ -21,7 +23,6 @@ class AddUserProfileActivity :
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(AddUserProfileViewModel::class.java)
-        val index = viewModel.size
         val nameEditText: EditText = binding.nameEditText
         val lastSeenEditText: EditText = binding.lastSeenEditText
         val postsEditText: EditText = binding.postsEditText
@@ -35,14 +36,14 @@ class AddUserProfileActivity :
         val saveChangesBtn: Button = binding.saveChangesBtn
 
         saveChangesBtn.setOnClickListener {
-            if (viewModel.isNumberValid(
+            if (viewModel.doesListContainOnlyNotEmptyNumbersBiggerThanZero(
                     listOf(
                         postsEditText.text.toString(),
                         followersEditText.text.toString(),
                         followingEditText.text.toString()
                     )
                 ) ||
-                viewModel.isEmpty(
+                viewModel.DoesListContainNotNullValues(
                     listOf(
                         nameEditText.text.toString(),
                         lastSeenEditText.text.toString(),
@@ -53,6 +54,7 @@ class AddUserProfileActivity :
                     )
                 )
             ) {
+                val index = viewModel.size
                 val user = User(
                     index,
                     nameEditText.text.toString(),

@@ -1,15 +1,43 @@
 package com.savelievoleksandr.userprofile.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.savelievoleksandr.userprofile.database.UserDatabase
+import androidx.test.core.app.ActivityScenario.launch
 import com.savelievoleksandr.userprofile.model.User
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddUserProfileViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class AddUserProfileViewModel @Inject constructor(private val repository: UserRepository) :
+    ViewModel() {
+    var size = 0
+    private val _userById = MutableLiveData<User>()
 
-    fun isNumberValid(number: List<String>): Boolean {
+    init {
+        viewModelScope.launch {
+            size = repository.size()
+        }
+    }
+
+    fun insertUser(user: User) {
+        viewModelScope.launch {
+            repository.insert(user)
+        }
+    }
+
+    fun getUserById(id: Int): User {
+        lateinit var user:User
+        val job: Job = viewModelScope.launch {
+            user=repository.get(id)
+        }
+        return user
+    }
+
+    fun doesListContainOnlyNotEmptyNumbersBiggerThanZero(number: List<String>): Boolean {
         var result: Boolean = true
         number.forEach {
             if (it.isEmpty() || !it.all { char -> char.isDigit() }
@@ -21,28 +49,12 @@ class AddUserProfileViewModel(application: Application) : AndroidViewModel(appli
         return true
     }
 
-    fun isEmpty(editText: List<String>): Boolean {
+    fun DoesListContainNotNullValues(editText: List<String>): Boolean {
         var result: Boolean = true
         editText.forEach {
             if (it.isEmpty())
                 return false
         }
         return true
-    }
-
-
-    private val dataSource = UserDatabase.getInstance(application).userDatabaseDao()
-    var size = 0
-
-    init {
-        viewModelScope.launch {
-            size = dataSource.size()
-        }
-    }
-
-    fun insertUser(user: User) {
-        viewModelScope.launch {
-            dataSource.insert(user)
-        }
     }
 }
